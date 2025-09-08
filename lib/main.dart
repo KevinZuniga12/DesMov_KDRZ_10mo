@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 
 String name = "Zúñiga";
 int age = 21;
-bool bueno_para_programar = true;
+bool buenoParaProgramar = true;
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             Text(
-              'Bueno para programar: ${bueno_para_programar ? "Sí" : "No"}',
+              'Bueno para programar: ${buenoParaProgramar ? "Sí" : "No"}',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ],
