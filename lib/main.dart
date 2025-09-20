@@ -35,9 +35,6 @@ bool buenoParaProgramar = true;
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Student> students = [
-    Student('Alice', 'ALI001'),
-    Student('Bob', 'BOB002'),
-    Student('Charlie', 'CHA003')
   ];
   final Student student = Student("Kevin", "KDRZ123");
 
