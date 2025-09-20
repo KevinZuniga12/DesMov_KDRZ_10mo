@@ -1,3 +1,4 @@
+import 'package:desmov_t1_kdrz/Student.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,7 +23,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
   final String title;
 
   @override
@@ -34,6 +34,16 @@ int age = 21;
 bool buenoParaProgramar = true;
 
 class _MyHomePageState extends State<MyHomePage> {
+  final List<Student> students = [
+    Student('Alice', 'ALI001'),
+    Student('Bob', 'BOB002'),
+    Student('Charlie', 'CHA003')
+  ];
+  final Student student = Student("Kevin", "KDRZ123");
+
+  TextEditingController _txtName = TextEditingController();
+  TextEditingController _txtStudentId = TextEditingController();
+
   int _counter = 0;
 
   void _incrementCounter() {
@@ -48,6 +58,40 @@ class _MyHomePageState extends State<MyHomePage> {
         _counter--;
       }
     });
+  }
+
+  Widget _getAllStudent(){
+    return Column(
+      children: [
+        const SizedBox(height: 12,),
+        Text("Student's list:"),
+        SizedBox(height: 12,),
+        ...students.map((student) => Text("- ${student.name}, ID: ${student.studentId}")),
+
+      ],
+    );
+  }
+
+  void _addStudent(){
+    final name = _txtName.text.trim();
+    final studentId = _txtStudentId.text.trim();
+    
+    if(name.isNotEmpty && studentId.isNotEmpty){
+      setState(() {
+        students.add(Student(name, studentId));
+        _txtName.clear();
+        _txtStudentId.clear();
+      });
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Estudiante $name agregado")),
+      );
+      return;
+    }
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Por favor completa todos los campos")),
+    );
   }
 
   @override
@@ -78,6 +122,43 @@ class _MyHomePageState extends State<MyHomePage> {
               'Bueno para programar: ${buenoParaProgramar ? "Sí" : "No"}',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
+            Padding(padding: EdgeInsets.symmetric(horizontal: 50),
+            child: TextField(
+              controller: _txtName,
+              decoration: InputDecoration(
+                labelText: "Escribe tu nombre",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            ),
+            SizedBox(height: 10),
+            Padding(padding: EdgeInsets.symmetric(horizontal: 50),
+            child: TextField(
+              controller: _txtStudentId,
+              decoration: InputDecoration(
+                labelText: "Escribe tu ID de estudiante",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            ),
+            SizedBox(height: 10),
+            Padding(padding: EdgeInsets.symmetric(horizontal: 50),
+              child: ElevatedButton(
+                onPressed: _addStudent,
+                child: Text("Guardar"),
+              ),
+            ),
+            SizedBox(height: 20,
+            ),
+            Text(
+              'Estudiantes:',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            Text(
+              '- ${student.name}, ID: ${student.studentId}',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            _getAllStudent(),
           ],
         ),
       ),
